@@ -82,8 +82,16 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
+        if (A == null) {
+            return B;
+        }
+        IntList C = new IntList();
+        C = A;
+        while (A.rest != null) {
+            A = A.rest;
+        }
         A.rest = B;
-        return null;
+        return C;
     }
 
     /**
@@ -92,12 +100,22 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        IntList C = new IntList();
-        C = A;
-        while (C.rest != null) {
-            C = C.rest;
+        if (A == null) {
+            return B;
         }
-        C.rest = B;
+        IntList C = new IntList(A.first, null);
+        // 创建一个指针来追踪结果列表
+        IntList D = C;
+        // 遍历A，将A的元素添加到结果列表中
+        for (IntList ptr = A.rest; ptr != null; ptr = ptr.rest) {
+            D.rest = new IntList(ptr.first, null);
+            D = D.rest;
+        }
+        // 将B的元素添加到结果列表的末尾
+        for (IntList ptr = B; ptr != null; ptr = ptr.rest) {
+            D.rest = new IntList(ptr.first, null);
+            D = D.rest;
+        }
         return C;
     }
 
